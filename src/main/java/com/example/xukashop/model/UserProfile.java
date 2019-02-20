@@ -5,27 +5,24 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class OrderItem {
+public class UserProfile {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private ProductOption productOption;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Order order;
+    private String phoneNumber;
+    private String address;
+    private Date dob;
+    private boolean gender;
 
-    private String note;
-
-    private int quantity;
-
-    private double sale;
-
-    private double subtotal;
 }

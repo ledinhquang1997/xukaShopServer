@@ -9,10 +9,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+
 @Getter
 @Setter
-@Embeddable
+@Entity
 public class Order {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -21,6 +21,9 @@ public class Order {
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     private Set<OrderItem> orderItems = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private User user;
 
     private String address;
     private String note;

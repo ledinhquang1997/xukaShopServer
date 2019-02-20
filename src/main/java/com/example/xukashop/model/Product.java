@@ -5,14 +5,13 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 //account product bill detail_bill permission supply promotion productCategory account_detail
-@Entity
+
 @Getter
 @Setter
+@Entity
 public class Product {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -28,8 +27,11 @@ public class Product {
     private int numberOfReviewer;
     private double price;
 
+    @ElementCollection
+    private List<Image> images = new ArrayList<>();
+
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-    private Set<Option> options = new HashSet<>();
+    private Set<ProductOption> productOptions = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;

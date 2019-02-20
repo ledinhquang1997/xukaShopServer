@@ -40,11 +40,15 @@ public class User {
 
     private String providerId;
 
-    private int money = 0;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles=new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "user")
+    private UserProfile userProfile;
 
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    private Set<Order> orders = new HashSet<>();
 }

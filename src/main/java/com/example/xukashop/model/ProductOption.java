@@ -5,18 +5,18 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-@Entity
+
 @Getter
 @Setter
-public class Option {
+@Entity
+public class ProductOption {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
+
     private String name;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -24,6 +24,9 @@ public class Option {
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     private Set<OrderItem> orderItems = new HashSet<>();
+
+    @ElementCollection
+    private List<Image> images = new ArrayList<>();
 
     private int stock;
     private boolean isActive;

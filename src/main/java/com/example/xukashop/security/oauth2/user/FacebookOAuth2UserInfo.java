@@ -35,4 +35,9 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
         }
         return null;
     }
+
+    @Override
+    public boolean getEmailVerified() {
+        return false;
+    }
 }
